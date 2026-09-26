@@ -256,7 +256,7 @@ function Games({ t }: { t: T }) {
             <Corners className="m-3 size-9 text-navy/25 transition duration-500 group-hover:text-cerulean" />
             <div className="flex items-start justify-between gap-4">
               <PuzzleIcon name={g.art} className="size-16 text-deep transition duration-700 group-hover:rotate-12 group-hover:text-cerulean" />
-              <span className="rounded-full bg-butter px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-navy">{g.kind}</span>
+              <span className="rounded-full bg-butter px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-ink">{g.kind}</span>
             </div>
             <div>
               <h3 className="text-2xl font-bold">{g.name}</h3>
@@ -306,7 +306,7 @@ function Impact({ t, lang }: { t: T; lang: Lang }) {
                 title={a[lang]}
                 style={{ gridColumn: a.col + 1, gridRow: a.row + 1, ...vars({ i: a.col }) }}
                 className={`reveal relative grid aspect-square place-items-center rounded-md border p-1 text-center ${
-                  on ? "border-butter bg-butter text-navy" : "border-bone/20 text-bone/70"
+                  on ? "border-butter bg-butter text-ink" : "border-bone/20 text-bone/70"
                 }`}
               >
                 <span className="hidden text-[11px] font-medium leading-tight md:block lg:text-xs">{a[lang]}</span>
@@ -377,7 +377,7 @@ function Contact({ t }: { t: T }) {
           </h2>
           <a
             href={`tel:${phone.tel}`}
-            className="reveal mt-12 inline-flex items-center gap-3 rounded-full bg-butter px-7 py-4 font-semibold text-navy transition hover:bg-bone"
+            className="reveal mt-12 inline-flex items-center gap-3 rounded-full bg-butter px-7 py-4 font-semibold text-ink transition hover:bg-bone"
           >
             {phone.label} <span aria-hidden>↗</span>
           </a>

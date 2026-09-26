@@ -137,7 +137,7 @@ const en = {
     contact: "Contact",
     soon: "Coming soon",
     rights: "All rights reserved.",
-    credit: "Hero photo via Unsplash",
+    credit: "Hero photo: C Cai via Unsplash",
   },
 };
 
@@ -240,7 +240,7 @@ const mn: typeof en = {
     contact: "Холбоо барих",
     soon: "Тун удахгүй",
     rights: "Бүх эрх хуулиар хамгаалагдсан.",
-    credit: "Нүүр зураг: Unsplash",
+    credit: "Нүүр зураг: C Cai, Unsplash",
   },
 };
 
@@ -258,6 +258,6 @@ export const phone = { label: "(+976) 95850420", tel: "+97695850420" };
 
 // ponytail: the only photo, hotlinked from Unsplash — move to /public before launch.
 export const heroImage = {
-  src: "https://images.unsplash.com/photo-1575415868394-e3b78f3e9b3f?w=2400&q=80&fm=jpg",
-  alt: "White gers on the golden steppe under a clear blue sky",
+  src: "https://images.unsplash.com/photo-1760776679643-0e28cbcd4214?w=2400&q=80&fm=jpg",
+  alt: "Traditional white gers on a vast green steppe beside a winding river",
 };

@@ -38,7 +38,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
 
       <main className="gutter space-y-6 py-8 md:py-10">
         {d.demo && (
-          <p className="rounded-2xl border border-gold/60 bg-butter/50 px-5 py-4 text-sm">
+          <p className="rounded-2xl border border-gold/60 bg-butter/15 px-5 py-4 text-sm">
             <b>Жишээ өгөгдөл.</b> Tracking болон өгөгдлийн сан хараахан холбогдоогүй тул доорх тоонууд жишээ. Холбогдмогц энд жинхэнэ тоо гарна.
           </p>
         )}
@@ -123,7 +123,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             head={["Огноо", "Төрөл", "Нэр", "И-мэйл", "Дэлгэрэнгүй"]}
             rows={d.registrations.map((r) => [
               stamp(r.createdAt),
-              <span key="k" className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${r.kind === "Семинар" ? "bg-butter" : "bg-sky/60"}`}>
+              <span key="k" className={`rounded-full px-2.5 py-0.5 text-xs font-medium text-ink ${r.kind === "Семинар" ? "bg-butter" : "bg-sky/60"}`}>
                 {r.kind}
               </span>,
               r.name,
@@ -143,7 +143,7 @@ function Card({ title, note, action, children }: { title: string; note?: string;
       <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
         <div>
           <h2 className="text-lg font-semibold">{title}</h2>
-          {note && <p className="text-sm text-[#5d6f80]">{note}</p>}
+          {note && <p className="text-sm text-navy/60">{note}</p>}
         </div>
         {action}
       </div>
@@ -168,11 +168,11 @@ function Kpis({ d }: { d: Dashboard }) {
         const up = change >= 0;
         return (
           <div key={t.label} className="rounded-3xl border border-sand bg-cream p-5">
-            <p className="text-sm text-[#5d6f80]">{t.label}</p>
+            <p className="text-sm text-navy/60">{t.label}</p>
             <p className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">{t.value}</p>
             <p className={`mt-2 text-sm font-medium ${up ? "text-[#2e7d4f]" : "text-[#b3412e]"}`}>
               {up ? "▲" : "▼"} {Math.abs(Math.round(change * 100))}%{" "}
-              <span className="font-normal text-[#5d6f80]">өмнөх үеэс</span>
+              <span className="font-normal text-navy/60">өмнөх үеэс</span>
             </p>
           </div>
         );
@@ -193,7 +193,7 @@ function Columns({ data }: { data: Dashboard["daily"] }) {
       <div className="relative h-60 pl-10">
         {[0, top / 2, top].map((t) => (
           <div key={t} className="absolute inset-x-0 border-t border-navy/10" style={{ bottom: `${(t / top) * 100}%` }}>
-            <span className="absolute -top-2 left-0 text-[11px] tabular-nums text-[#5d6f80]">{t}</span>
+            <span className="absolute -top-2 left-0 text-[11px] tabular-nums text-navy/60">{t}</span>
           </div>
         ))}
         <div className="absolute inset-y-0 left-10 right-0 flex items-end gap-[2px]">
@@ -223,13 +223,13 @@ function Columns({ data }: { data: Dashboard["daily"] }) {
           ))}
         </div>
       </div>
-      <div className="mt-2 flex justify-between pl-10 text-[11px] tabular-nums text-[#5d6f80]">
+      <div className="mt-2 flex justify-between pl-10 text-[11px] tabular-nums text-navy/60">
         <span>{day(data[0].date)}</span>
         <span>{day(data[Math.floor(last / 2)].date)}</span>
         <span>{day(data[last].date)}</span>
       </div>
       <details className="mt-4 text-sm">
-        <summary className="cursor-pointer text-[#5d6f80] hover:text-navy">Хүснэгтээр харах</summary>
+        <summary className="cursor-pointer text-navy/60 hover:text-navy">Хүснэгтээр харах</summary>
         <div className="mt-3 grid grid-cols-3 gap-x-6 gap-y-1 tabular-nums sm:grid-cols-5 lg:grid-cols-8">
           {data.map((d, i) => (
             <span key={i}>
@@ -262,7 +262,7 @@ function Table({ head, rows }: { head: string[]; rows: ReactNode[][] }) {
     <div className="-mx-5 overflow-x-auto px-5 md:-mx-7 md:px-7">
       <table className="w-full min-w-[44rem] text-left text-sm">
         <thead>
-          <tr className="border-b border-navy/15 text-[#5d6f80]">
+          <tr className="border-b border-navy/15 text-navy/60">
             {head.map((h) => (
               <th key={h} scope="col" className="whitespace-nowrap py-2 pr-4 font-medium">
                 {h}

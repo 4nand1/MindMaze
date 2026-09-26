@@ -1,11 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Geologica, Noto_Sans_Mongolian } from "next/font/google";
+import { Geologica, Oswald, Noto_Sans_Mongolian } from "next/font/google";
 import "./globals.css";
 
 const geologica = Geologica({
   variable: "--font-geologica",
   subsets: ["latin", "cyrillic"],
   axes: ["slnt", "SHRP"],
+});
+
+const oswald = Oswald({
+  variable: "--font-oswald",
+  subsets: ["latin", "cyrillic"],
 });
 
 const mongolian = Noto_Sans_Mongolian({
@@ -22,12 +27,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f7edd3",
+  themeColor: "#0a1a3f",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geologica.variable} ${mongolian.variable}`}>
+    <html lang="en" className={`${geologica.variable} ${oswald.variable} ${mongolian.variable}`}>
       <body>{children}</body>
     </html>
   );
