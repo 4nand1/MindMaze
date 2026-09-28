@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Site } from "./site";
+import { Site } from "../site";
 
 export const metadata: Metadata = {
   title: "MindMaze Mongolia",

@@ -560,9 +560,11 @@ body::after {
   60% {
     opacity: 1;
   }
+  /* visibility: hidden at the end, so the faded rings stop catching taps and keyboard focus. */
   to {
     scale: 4.2;
     opacity: 0;
+    visibility: hidden;
   }
 }
 @keyframes out {
@@ -636,6 +638,18 @@ body::after {
 @keyframes alkhan-run {
   to {
     translate: -192px 0;
+  }
+}
+@keyframes grow-y {
+  from {
+    scale: 1 0;
+  }
+}
+@keyframes stop-on {
+  to {
+    background: var(--color-butter);
+    border-color: var(--color-butter);
+    color: var(--color-ink);
   }
 }
 @keyframes marquee {
@@ -894,6 +908,19 @@ body::after {
       animation: spin-scroll linear both;
       animation-timeline: view();
       animation-range: cover;
+    }
+
+    /* Programs route: the path grows down from each stop; a stop lights up at mid-screen. */
+    .route-line {
+      transform-origin: top;
+      animation: grow-y linear both;
+      animation-timeline: view();
+      animation-range: cover 25% cover 60%;
+    }
+    .route-stop {
+      animation: stop-on linear both;
+      animation-timeline: view();
+      animation-range: cover 45% cover 50%;
     }
 
     /* Implementation: numbers count up as they arrive. */

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 import { Geologica, Oswald, Noto_Sans_Mongolian } from "next/font/google";
 import "./globals.css";
 
@@ -30,9 +31,10 @@ export const viewport: Viewport = {
   themeColor: "#0a1a3f",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+// Shared by the (en) and (mn) root layouts — each language gets its own <html lang>.
+export function Root({ lang, children }: { lang: "en" | "mn"; children: ReactNode }) {
   return (
-    <html lang="en" className={`${geologica.variable} ${oswald.variable} ${mongolian.variable}`}>
+    <html lang={lang} className={`${geologica.variable} ${oswald.variable} ${mongolian.variable}`}>
       <body>{children}</body>
     </html>
   );

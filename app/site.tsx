@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { Burr } from "./burr";
 import { MONGOL, SKY, aimags, copy, heroImage, impactNumbers, phone, provinces, type Lang } from "./content";
 import { MAP, MAP_VIEWBOX } from "./mongolia-map";
+import { LangSwitch } from "./lang-switch";
 import { Menu } from "./menu";
 import { NavLinks } from "./nav-links";
 import { Corners, Defs, Glyph, Mark, PuzzleIcon, ToonoArt, type GlyphName } from "./ornaments";
@@ -12,7 +13,6 @@ import { ToonoPuzzle } from "./toono-puzzle";
 type T = (typeof copy)["en"];
 
 const GLYPH_CYCLE: GlyphName[] = ["petals", "toono", "dots", "curl"];
-const HOME: Record<Lang, string> = { en: "/", mn: "/mn" };
 // Keyed by the English kind so a category gets the same colour in both languages.
 const KIND_TONE: Record<string, string> = {
   Interlocking: "border-butter/50 bg-butter/15 text-butter",
@@ -63,27 +63,6 @@ export function Site({ lang }: { lang: Lang }) {
         <Team t={t} />
       </main>
       <Footer t={t} />
-    </div>
-  );
-}
-
-function LangSwitch({ lang }: { lang: Lang }) {
-  return (
-    <div className="flex rounded-full border border-navy/20 p-0.5 text-[11px] font-semibold uppercase">
-      {(Object.keys(HOME) as Lang[]).map((l, i) => (
-        <a
-          key={l}
-          href={HOME[l]}
-          hrefLang={l}
-          aria-current={l === lang ? "page" : undefined}
-          // Transparent 8px hit area via ::before; the two badges split the seam between them.
-          className={`relative min-w-10 rounded-full px-3 py-2 text-center transition before:absolute before:-inset-y-2 ${
-            i === 0 ? "before:-left-2 before:right-0" : "before:left-0 before:-right-2"
-          } ${l === lang ? "bg-navy text-paper" : "text-navy/70 hover:text-navy"}`}
-        >
-          {l}
-        </a>
-      ))}
     </div>
   );
 }
@@ -323,7 +302,8 @@ function Games({ t }: { t: T }) {
   );
 }
 
-// Programs: a numbered accordion; only one opens at a time (details name=).
+// Programs as a maze route: one right-angled path runs down the page and every program is a stop on it.
+// The path draws itself and each stop lights up as you reach it (globals.css: .route-*).
 function Programs({ t }: { t: T }) {
   return (
     <section id="programs" className="gutter py-24 md:py-36">
@@ -331,34 +311,41 @@ function Programs({ t }: { t: T }) {
       <h2 className="reveal headline max-w-4xl text-[clamp(2.2rem,5.4vw,5rem)]">
         {t.programs.title} <span className="slant text-cobalt">{t.programs.accent}</span>
       </h2>
-      <div className="mt-14 border-t border-navy/15">
-        {t.programs.items.map((p, i) => (
-          <details key={p.title} name="programs" style={vars({ i })} className="reveal group border-b border-navy/15">
-            <summary className="flex cursor-pointer items-center gap-4 py-6 md:gap-8 md:py-8">
-              <span className="w-8 text-xs tracking-[0.2em] text-navy/50">0{i + 1}</span>
-              <PuzzleIcon name={p.art} className="size-9 shrink-0 text-deep transition duration-300 group-hover:text-cerulean md:size-11" />
-              <span className="flex-1 text-2xl font-semibold uppercase tracking-tight md:text-4xl">{p.title}</span>
-              <span
-                aria-hidden
-                className="grid size-10 shrink-0 place-items-center rounded-full border border-navy/25 text-xl transition duration-300 group-open:rotate-45 group-open:border-butter group-open:text-butter md:size-12"
+      <ol className="mt-16 md:mt-24">
+        {t.programs.items.map((p, i) => {
+          const left = i % 2 === 0;
+          return (
+            <li key={p.title} className="group grid grid-cols-[3rem_1fr] gap-x-5 md:grid-cols-[1fr_6rem_1fr] md:gap-x-0">
+              <div aria-hidden className="relative md:col-start-2 md:row-start-1">
+                <span className="route-line absolute inset-x-0 top-6 bottom-0 mx-auto w-px bg-navy/25 group-last:hidden" />
+                <span
+                  className={`absolute top-6 hidden h-px w-[calc(50%+3rem)] bg-navy/25 md:block ${left ? "right-1/2" : "left-1/2"}`}
+                />
+                <span className="route-stop headline relative mx-auto grid size-12 place-items-center border border-navy/30 bg-paper text-lg">
+                  0{i + 1}
+                </span>
+              </div>
+              <article
+                className={`reveal pb-16 md:row-start-1 md:pb-28 ${left ? "md:col-start-1 md:pr-12 md:text-right" : "md:col-start-3 md:pl-12"}`}
               >
-                +
-              </span>
-            </summary>
-            <div className="grid gap-6 pb-10 md:grid-cols-[1fr_20rem] md:gap-16 md:pl-[calc(2rem+2.75rem+4rem)]">
-              <p className="max-w-2xl text-navy/75 md:text-lg">{p.text}</p>
-              <ul className="space-y-2 text-sm">
-                {p.points.map((pt) => (
-                  <li key={pt} className="flex items-center gap-3">
-                    <span aria-hidden className="size-1.5 rounded-full bg-gold" />
-                    {pt}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </details>
-        ))}
-      </div>
+                <div className={`flex items-center gap-4 ${left ? "md:flex-row-reverse" : ""}`}>
+                  <PuzzleIcon name={p.art} className="size-10 shrink-0 text-deep md:size-12" />
+                  <h3 className="headline text-3xl md:text-5xl">{p.title}</h3>
+                </div>
+                <p className="mt-5 text-navy/75 md:text-lg">{p.text}</p>
+                <ul className={`mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-navy/85 ${left ? "md:justify-end" : ""}`}>
+                  {p.points.map((pt) => (
+                    <li key={pt} className="flex items-center gap-2">
+                      <span aria-hidden className="size-1.5 bg-gold" />
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </li>
+          );
+        })}
+      </ol>
     </section>
   );
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Mark } from "../ornaments";
+import { Mark } from "../../ornaments";
 import { RANGES, SECTIONS, getDashboard, type Dashboard, type Range, type Share } from "./data";
 
 // ponytail: not protected yet — add sign-in (Cloudflare Access or Clerk) before real data lands here.
