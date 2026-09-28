@@ -45,6 +45,7 @@ function woodTexture(THREE: typeof import("three")) {
 export function Burr({ fallback }: { fallback: ReactNode }) {
   const ref = useRef<HTMLCanvasElement>(null);
   const [failed, setFailed] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const canvas = ref.current;
@@ -101,6 +102,7 @@ export function Burr({ fallback }: { fallback: ReactNode }) {
       addEventListener("resize", resize);
 
       const t0 = performance.now();
+      let drawn = false;
       const frame = () => {
         const r = section.getBoundingClientRect();
         // 0 → 1 over the pinned stretch of the section; reduced motion shows it assembled.
@@ -112,6 +114,10 @@ export function Burr({ fallback }: { fallback: ReactNode }) {
         const time = reduce ? 0 : (performance.now() - t0) / 1000;
         group.rotation.set(0.55 - p * 0.2, 0.7 + p * Math.PI * 1.2 + time * 0.12, 0.15);
         renderer.render(scene, camera);
+        if (!drawn) {
+          drawn = true;
+          setReady(true);
+        }
         if (!reduce) raf = requestAnimationFrame(frame);
       };
 
@@ -139,5 +145,15 @@ export function Burr({ fallback }: { fallback: ReactNode }) {
     };
   }, []);
 
-  return failed ? fallback : <canvas ref={ref} aria-hidden className="burr-canvas" />;
+  if (failed) return fallback;
+  return (
+    <>
+      {!ready && (
+        <div aria-hidden className="burr-canvas grid place-items-center">
+          <div className="skeleton size-40 rotate-12 rounded-3xl md:size-56" />
+        </div>
+      )}
+      <canvas ref={ref} aria-hidden className={`burr-canvas transition-opacity duration-500 ${ready ? "opacity-100" : "opacity-0"}`} />
+    </>
+  );
 }

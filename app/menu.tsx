@@ -12,9 +12,10 @@ export function Menu({ links, labels }: { links: readonly (readonly [string, str
         aria-expanded={open}
         aria-controls="mobile-menu"
         onClick={() => setOpen(!open)}
-        className="rounded-full border border-navy/25 px-3 py-2 text-sm sm:px-4"
+        // Transparent 8px of padding around the visible pill enlarges the tap target (-m-2 keeps layout).
+        className="-m-2 block rounded-full p-2"
       >
-        {open ? labels[1] : labels[0]}
+        <span className="block rounded-full border border-navy/25 px-3 py-2 text-sm">{open ? labels[1] : labels[0]}</span>
       </button>
       {open && (
         <nav
