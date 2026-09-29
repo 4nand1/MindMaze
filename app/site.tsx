@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import { Burr } from "./burr";
-import { MONGOL, SKY, aimags, copy, heroImage, impactNumbers, phone, provinces, type Lang } from "./content";
+import { SKY, aimags, copy, heroImage, impactNumbers, phone, provinces, type Lang } from "./content";
 import { MAP, MAP_VIEWBOX } from "./mongolia-map";
 import { LangSwitch } from "./lang-switch";
 import { Menu } from "./menu";
@@ -15,9 +15,9 @@ type T = (typeof copy)["en"];
 const GLYPH_CYCLE: GlyphName[] = ["petals", "toono", "dots", "curl"];
 // Keyed by the English kind so a category gets the same colour in both languages.
 const KIND_TONE: Record<string, string> = {
-  Interlocking: "border-butter/50 bg-butter/15 text-butter",
-  Lock: "border-sky/50 bg-sky/15 text-sky",
-  Disentangling: "border-jade/50 bg-jade/15 text-jade",
+  Interlocking: "border-amber/50 bg-amber/10 text-amber",
+  Lock: "border-deep/40 bg-deep/10 text-deep",
+  Disentangling: "border-[#1f7a52]/40 bg-[#1f7a52]/10 text-[#1f7a52]",
 };
 
 // CSS custom props for staggered / counting animations in globals.css.
@@ -110,7 +110,7 @@ function Hero({ t }: { t: T }) {
           <ToonoPuzzle label={t.hero.ringLabel} hint={t.hero.hint} solved={t.hero.solved}>
             <ToonoArt ring={t.ring} spokes={false} className="absolute inset-0 size-full" />
           </ToonoPuzzle>
-          <h1 aria-label="MindMaze" className="h-words headline lowercase text-navy">
+          <h1 aria-label="MindMaze" className="h-words headline lowercase text-bone">
             <span className="h-mind">
               <span className="in-l">mind</span>
             </span>
@@ -163,7 +163,7 @@ function Statement({ t }: { t: T }) {
         <div>
           <h2 className="reveal headline text-[clamp(2.4rem,6vw,6rem)]">
             {t.statement.map(([text, accent]) => (
-              <span key={text} className={accent ? "slant text-cobalt" : ""}>
+              <span key={text} className={accent ? "slant text-saffron" : ""}>
                 {text}{" "}
               </span>
             ))}
@@ -281,7 +281,7 @@ function Games({ t }: { t: T }) {
           <article
             key={g.name}
             style={vars({ i })}
-            className="reveal group relative flex flex-col gap-6 rounded-sm border border-sand bg-cream p-8 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_-24px_rgb(20_34_75/0.35)] md:p-10"
+            className="reveal group relative flex flex-col gap-6 rounded-sm border border-sand bg-cream p-8 transition duration-300 hover:-translate-y-1 hover:border-cerulean/60 hover:shadow-[0_24px_48px_-24px_rgb(79_184_232/0.35)] md:p-10"
           >
             <Corners className="m-3 size-9 text-navy/25 transition duration-300 group-hover:text-cerulean" />
             <div className="flex items-start justify-between gap-4">
@@ -309,7 +309,7 @@ function Programs({ t }: { t: T }) {
     <section id="programs" className="gutter py-24 md:py-36">
       <Label n="04">{t.programs.label}</Label>
       <h2 className="reveal headline max-w-4xl text-[clamp(2.2rem,5.4vw,5rem)]">
-        {t.programs.title} <span className="slant text-cobalt">{t.programs.accent}</span>
+        {t.programs.title} <span className="slant text-saffron">{t.programs.accent}</span>
       </h2>
       <ol className="mt-16 md:mt-24">
         {t.programs.items.map((p, i) => {
@@ -356,7 +356,7 @@ const SMALL_AIMAGS = ["ub", "ork", "dar", "gsu"];
 // The deep-blue band: numbers that count up, and a map of Mongolia's aimags.
 function Impact({ t, lang }: { t: T; lang: Lang }) {
   return (
-    <section id="impact" className="sky-band gutter pb-60 pt-56 text-bone">
+    <section id="impact" className="sky-band gutter pb-40 pt-40 text-bone md:pb-60 md:pt-56">
       <Label n="05">{t.impact.label}</Label>
       <dl className="border-t border-bone/15">
         {impactNumbers.map((s, i) => (
@@ -413,7 +413,7 @@ function Team({ t }: { t: T }) {
     <section id="team" className="gutter py-24 md:py-36">
       <Label n="06">{t.team.label}</Label>
       <h2 className="reveal headline max-w-4xl text-[clamp(2.2rem,5.4vw,5rem)]">
-        {t.team.title} <span className="slant text-cobalt">{t.team.accent}</span>
+        {t.team.title} <span className="slant text-saffron">{t.team.accent}</span>
       </h2>
       <div className="mt-14 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {t.team.core.map((m, i) => (
@@ -448,50 +448,42 @@ function Team({ t }: { t: T }) {
   );
 }
 
+// Compact footer: brand, links and contact on one band, legal line underneath.
 function Footer({ t }: { t: T }) {
   return (
-    <footer className="mt-12 overflow-clip rounded-t-[2rem] border-t border-bone/15 bg-ink text-bone md:mt-20 md:rounded-t-[3rem]">
-      <div aria-hidden className="alkhan alkhan-run h-6 text-sky/25" />
+    <footer className="overflow-clip bg-navy text-bone">
+      <div aria-hidden className="alkhan alkhan-run h-5 text-gold/40" />
       <div className="gutter">
-        <div className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-4 md:py-20">
+        <div className="grid gap-8 py-10 md:grid-cols-[1fr_auto_auto] md:items-center md:gap-12 md:py-12">
           <div>
             <p className="flex items-center gap-2.5 text-sm font-bold uppercase tracking-[0.2em]">
-              <Mark className="size-6 text-sky" />
+              <Mark className="size-6 text-gold" />
               MindMaze
             </p>
-            <p className="mt-5 max-w-xs text-sm text-bone/65">{t.footer.line}</p>
+            <p className="mt-2 text-sm text-bone/65">
+              {t.footer.line} <span className="text-butter">LearnMaze — {t.footer.soon.toLowerCase()}</span>
+            </p>
           </div>
           <nav aria-label="Footer">
-            <p className="mb-4 text-xs uppercase tracking-[0.22em] text-bone/55">{t.menu[0]}</p>
-            <ul className="space-y-2 text-sm">
+            <ul className="flex flex-wrap gap-x-5 gap-y-1 text-sm">
               {t.nav.map(([href, label]) => (
                 <li key={href}>
-                  <a href={href} className="capitalize hover:text-butter">
+                  <a href={href} className="inline-block py-2 capitalize text-bone/80 transition hover:text-butter">
                     {label}
                   </a>
                 </li>
               ))}
             </ul>
           </nav>
-          <div>
-            <p className="mb-4 text-xs uppercase tracking-[0.22em] text-bone/55">{t.footer.contact}</p>
-            <a
+          <a
             href={`tel:${phone.tel}`}
-            className="inline-flex h-12 items-center rounded-2xl border border-bone/20 bg-bone/5 px-[18px] text-sm hover:text-butter md:-my-2 md:h-auto md:rounded-none md:border-0 md:bg-transparent md:px-0 md:py-2"
+            aria-label={`${t.footer.contact}: ${phone.label}`}
+            className="inline-flex h-11 w-fit items-center rounded-full bg-gold px-5 text-sm font-semibold text-ink transition hover:bg-butter"
           >
-              {phone.label}
-            </a>
-          </div>
-          <div>
-            <p className="mb-4 text-xs uppercase tracking-[0.22em] text-bone/55">LearnMaze</p>
-            <p className="text-sm">{t.footer.soon}</p>
-          </div>
+            {phone.label}
+          </a>
         </div>
-        <div aria-hidden className="flex items-end justify-between gap-4 border-t border-bone/15 pt-10">
-          <p className="headline text-outline mark-fill select-none text-[13vw] leading-[0.8]">MindMaze</p>
-          <p className="mongol mb-1 whitespace-nowrap text-2xl/[1.8] text-butter md:text-4xl/[1.8]">{MONGOL}</p>
-        </div>
-        <div className="mt-8 flex flex-col gap-2 border-t border-bone/15 py-6 text-xs text-bone/55 md:flex-row md:justify-between">
+        <div className="flex flex-col gap-1 border-t border-bone/15 py-5 text-xs text-bone/55 md:flex-row md:justify-between">
           <p>
             © {new Date().getFullYear()} MindMaze Mongolia. {t.footer.rights}
           </p>
