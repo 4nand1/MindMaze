@@ -30,7 +30,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             <Mark className="size-5 text-cobalt" />
             MindMaze <span className="font-medium normal-case tracking-normal text-navy/55">· Админ</span>
           </p>
-          <Link href="/" className="rounded-full border border-navy/20 px-4 py-2 text-sm transition hover:bg-navy hover:text-paper">
+          <Link href="/" className="inline-flex min-h-11 items-center rounded-full border border-navy/20 px-4 text-sm transition hover:bg-navy hover:text-paper">
             Сайт руу ↗
           </Link>
         </div>
@@ -50,7 +50,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
               key={r}
               href={`?range=${r}`}
               aria-current={r === range ? "page" : undefined}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+              className={`inline-flex min-h-11 items-center rounded-full px-4 text-sm font-medium transition ${
                 r === range ? "bg-navy text-paper" : "border border-navy/15 bg-cream hover:border-navy/40"
               }`}
             >
@@ -114,7 +114,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
           title="Бүртгэлүүд"
           note={`${d.registrations.length} бүртгэл`}
           action={
-            <a href="/admin/export" className="rounded-full bg-navy px-4 py-2 text-sm font-medium text-paper transition hover:bg-deep">
+            <a href="/admin/export" className="inline-flex min-h-11 items-center rounded-full bg-navy px-4 text-sm font-medium text-paper transition hover:bg-deep">
               CSV татах ↓
             </a>
           }

@@ -33,7 +33,6 @@ export const provinces: string[] = [];
 
 // Traditional Mongolian script (U+1800 block), rendered with Noto Sans Mongolian.
 export const SKY = "ᠮᠥᠩᠬᠡ ᠬᠥᠬᠡ ᠲᠩᠷᠢ"; // Мөнх хөх тэнгэр
-export const MONGOL = "ᠮᠣᠩᠭᠣᠯ ᠤᠯᠤᠰ"; // Монгол улс
 
 const en = {
   nav: [

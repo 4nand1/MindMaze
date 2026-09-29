@@ -36,7 +36,7 @@ export function ToonoPuzzle({ label, hint, solved, children }: { label: string; 
 
   return (
     <>
-      <div className={`h-toono text-navy ${done ? "is-solved" : ""}`}>
+      <div className={`h-toono text-butter ${done ? "is-solved" : ""}`}>
         {children}
         <svg viewBox="-200 -200 400 400" fill="none" stroke="currentColor" strokeWidth="1.4" className="absolute inset-0 size-full">
           <circle r="76" strokeDasharray="2 5" opacity=".35" />

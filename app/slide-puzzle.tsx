@@ -72,7 +72,7 @@ export function SlidePuzzle({ src, labels }: { src: string; labels: Labels }) {
         })}
       </div>
       <div className="mt-5 flex items-center justify-between gap-4 text-sm">
-        <p aria-live="polite" className={done ? "font-semibold text-butter" : "text-navy/60"}>
+        <p aria-live="polite" className={done ? "font-semibold text-amber" : "text-navy/60"}>
           {done ? labels.solved.replace("{n}", String(moves)) : moves ? `${labels.moves}: ${moves}` : labels.hint}
         </p>
         {moves > 0 && (

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a1a3f",
+  themeColor: "#fffcf5",
 };
 
 // Shared by the (en) and (mn) root layouts — each language gets its own <html lang>.
