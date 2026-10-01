@@ -4,6 +4,7 @@ import type { MouseEvent } from "react";
 import type { Lang } from "./content";
 
 const HOME: Record<Lang, string> = { en: "/", mn: "/mn" };
+const NAME: Record<Lang, string> = { en: "English", mn: "Монгол" };
 
 // Switching language keeps your place: jump to the same section on the other page.
 function keepSection(e: MouseEvent<HTMLAnchorElement>) {
@@ -13,12 +14,13 @@ function keepSection(e: MouseEvent<HTMLAnchorElement>) {
 
 export function LangSwitch({ lang }: { lang: Lang }) {
   return (
-    <div className="flex rounded-full border border-navy/20 p-0.5 text-[11px] font-semibold uppercase">
+    <div className="flex rounded-full border border-navy/20 p-0.5 text-xs font-semibold uppercase">
       {(Object.keys(HOME) as Lang[]).map((l, i) => (
         <a
           key={l}
           href={HOME[l]}
           hrefLang={l}
+          aria-label={NAME[l]}
           onClick={keepSection}
           aria-current={l === lang ? "page" : undefined}
           // Transparent 8px hit area via ::before; the two badges split the seam between them.

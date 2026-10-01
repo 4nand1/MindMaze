@@ -85,10 +85,17 @@ function Header({ t, lang }: { t: T; lang: Lang }) {
             <br />
             {t.studio[1]}
             <br />
-            <span className="font-normal text-navy/55">{t.studio[2]}</span>
+            <span className="font-normal text-navy/70">{t.studio[2]}</span>
           </p>
           <LangSwitch lang={lang} />
-          <Menu links={t.nav} labels={t.menu} />
+          {/* The one primary action, on every screen: reach us. */}
+          <a
+            href="#contact"
+            className="hidden h-11 items-center rounded-full bg-cobalt px-5 text-sm font-semibold text-bone transition hover:bg-deep sm:inline-flex"
+          >
+            {t.footer.contact}
+          </a>
+          <Menu links={[...t.nav, ["#contact", t.footer.contact]]} labels={t.menu} />
         </div>
       </div>
     </header>
@@ -105,7 +112,7 @@ function Hero({ t }: { t: T }) {
             <div className="h-photo-inner">
               <Image src={heroImage.src} alt={heroImage.alt} fill preload sizes="100vw" className="photo-skeleton object-cover" />
             </div>
-            <div className="h-shade absolute inset-0 bg-linear-to-t from-ink/80 via-ink/25 to-transparent" />
+            <div className="h-shade absolute inset-0 bg-linear-to-t from-ink/90 via-ink/50 to-ink/10" />
           </div>
           <ToonoPuzzle label={t.hero.ringLabel} hint={t.hero.hint} solved={t.hero.solved}>
             <ToonoArt ring={t.ring} spokes={false} className="absolute inset-0 size-full" />
@@ -133,7 +140,7 @@ function Hero({ t }: { t: T }) {
           </div>
         </div>
         <div className="after-iris gutter flex flex-col justify-end bg-ink pb-12 pt-28 text-bone md:pb-16">
-          <p className="mb-8 inline-flex w-fit items-center gap-3 rounded-full border border-bone/30 bg-ink/30 px-4 py-2 text-sm backdrop-blur-md">
+          <p className="mb-6 inline-flex w-fit items-center gap-2.5 text-sm font-medium text-bone/90">
             <span className="size-2.5 rounded-full bg-gold" />
             {t.hero.badge}
           </p>
@@ -147,7 +154,14 @@ function Hero({ t }: { t: T }) {
               <span className="slant text-gold">{t.hero.accent}</span>
             </h2>
           </div>
-          <p className="mt-10 max-w-2xl border-t border-bone/25 pt-6 text-bone/90 md:text-lg">{t.hero.lead}</p>
+          <p className="mt-10 max-w-2xl border-t border-bone/25 pt-6 text-bone md:text-lg">{t.hero.lead}</p>
+          {/* after-iris ignores pointers so the scroll scene stays grabbable; the button opts back in. */}
+          <a
+            href="#contact"
+            className="pointer-events-auto mt-8 inline-flex h-12 w-fit items-center rounded-full bg-gold px-6 font-semibold text-ink transition hover:bg-butter"
+          >
+            {t.footer.contact} →
+          </a>
         </div>
       </div>
     </section>
@@ -157,13 +171,13 @@ function Hero({ t }: { t: T }) {
 // About: the statement beside a sliding puzzle of the steppe — the site's idea, playable.
 function Statement({ t }: { t: T }) {
   return (
-    <section id="about" className="gutter py-24 md:py-36">
+    <section id="about" className="gutter py-16 md:py-36">
       <Label n="01">{t.about}</Label>
       <div className="grid items-center gap-12 md:grid-cols-[1fr_minmax(0,28rem)] md:gap-20">
         <div>
           <h2 className="reveal headline text-[clamp(2.4rem,6vw,6rem)]">
             {t.statement.map(([text, accent]) => (
-              <span key={text} className={accent ? "slant text-saffron" : ""}>
+              <span key={text} className={accent ? "slant text-cobalt" : ""}>
                 {text}{" "}
               </span>
             ))}
@@ -218,7 +232,7 @@ function Puzzle({ t }: { t: T }) {
           <p className="reveal mt-6 text-navy/70 md:text-lg">{t.burr.text}</p>
           </div>
         </div>
-        <p className="absolute bottom-8 right-5 text-[11px] uppercase tracking-[0.22em] text-navy/55 md:right-12">{t.burr.caption}</p>
+        <p className="absolute bottom-8 right-5 text-[11px] uppercase tracking-[0.22em] text-navy/70 md:right-12">{t.burr.caption}</p>
       </div>
     </section>
   );
@@ -227,30 +241,30 @@ function Puzzle({ t }: { t: T }) {
 function Why({ t }: { t: T }) {
   return (
     <section id="why" className="px-3 md:px-6">
-      <div className="expand sky-card relative isolate mx-auto max-w-[96rem] overflow-hidden rounded-[2rem] px-5 py-20 text-bone md:rounded-[3rem] md:px-16 md:py-28">
+      <div className="expand sky-card relative isolate mx-auto max-w-[96rem] overflow-hidden rounded-[2rem] px-5 py-14 text-bone md:rounded-[3rem] md:px-16 md:py-28">
         <Label n="03">{t.why.label}</Label>
         <h2 className="reveal headline max-w-4xl text-[clamp(2.2rem,5.4vw,5rem)]">
           {t.why.title} <span className="slant text-sky">{t.why.accent}</span>
         </h2>
-        <div className="mt-16 grid gap-4 md:grid-cols-2">
+        <div className="mt-10 grid gap-3 md:mt-16 md:grid-cols-2 md:gap-4">
           {t.why.items.map((p, i) => (
             <article
               key={p.title}
               style={vars({ i })}
-              className="reveal group relative isolate flex flex-col overflow-hidden rounded-[1.75rem] border border-bone/15 bg-bone/5 p-7 transition duration-300 hover:border-sky/40 hover:bg-bone/10 md:p-10"
+              className="reveal group relative isolate flex flex-col overflow-hidden rounded-[1.75rem] border border-bone/15 bg-bone/5 p-6 transition duration-300 hover:border-sky/40 hover:bg-bone/10 md:p-10"
             >
               <Glyph name={p.glyph} className="pillar-glyph absolute -right-16 -top-16 -z-10 size-64 opacity-25 md:size-80" />
-              <p className="headline text-7xl text-sky/30 md:text-8xl">0{i + 1}</p>
-              <h3 className="mt-6 text-sm font-semibold uppercase tracking-[0.22em] text-sky">{p.title}</h3>
+              <p className="headline text-5xl text-sky/30 md:text-8xl">0{i + 1}</p>
+              <h3 className="mt-4 text-sm font-semibold uppercase tracking-[0.22em] text-sky md:mt-6">{p.title}</h3>
               <p className="mt-3 text-2xl font-semibold leading-snug md:text-3xl">{p.short}</p>
-              <ul className="mt-8 flex flex-wrap gap-2">
+              <ul className="mt-5 flex flex-wrap gap-2 md:mt-8">
                 {p.tags.map((tag) => (
                   <li key={tag} className="rounded-full border border-bone/20 px-3.5 py-1.5 text-sm text-bone/85">
                     {tag}
                   </li>
                 ))}
               </ul>
-              <details className="mt-auto pt-8">
+              <details className="mt-auto pt-5 md:pt-8">
                 <summary className="inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-sky hover:text-bone">
                   {t.why.more} <span aria-hidden>+</span>
                 </summary>
@@ -267,7 +281,7 @@ function Why({ t }: { t: T }) {
 // dari-style grid of line drawings: the traditional puzzles themselves.
 function Games({ t }: { t: T }) {
   return (
-    <section id="games" className="gutter pb-24 pt-12 md:pb-36 md:pt-16">
+    <section id="games" className="gutter pb-16 pt-12 md:pb-36 md:pt-16">
       <div className="grid gap-8 md:grid-cols-2 md:items-end">
         <h2 className="reveal headline text-[clamp(2.2rem,6vw,5.5rem)]">
           {t.games.title}
@@ -276,12 +290,13 @@ function Games({ t }: { t: T }) {
         </h2>
         <p className="reveal max-w-md text-navy/70 md:justify-self-end md:text-lg">{t.games.intro}</p>
       </div>
-      <div className="mt-16 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Phones: one swipeable row instead of six stacked cards. */}
+      <div className="-mx-5 mt-10 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-5 px-5 pb-2 [scrollbar-width:none] sm:mx-0 sm:mt-16 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-3">
         {t.games.items.map((g, i) => (
           <article
             key={g.name}
             style={vars({ i })}
-            className="reveal group relative flex flex-col gap-6 rounded-sm border border-sand bg-cream p-8 transition duration-300 hover:-translate-y-1 hover:border-cerulean/60 hover:shadow-[0_24px_48px_-24px_rgb(79_184_232/0.35)] md:p-10"
+            className="reveal group relative flex w-[82%] shrink-0 snap-start flex-col gap-5 rounded-sm border border-sand bg-cream p-6 sm:w-auto sm:gap-6 sm:p-8 transition duration-300 hover:-translate-y-1 hover:border-cerulean/60 hover:shadow-[0_24px_48px_-24px_rgb(79_184_232/0.35)] md:p-10"
           >
             <Corners className="m-3 size-9 text-navy/25 transition duration-300 group-hover:text-cerulean" />
             <div className="flex items-start justify-between gap-4">
@@ -306,12 +321,12 @@ function Games({ t }: { t: T }) {
 // The path draws itself and each stop lights up as you reach it (globals.css: .route-*).
 function Programs({ t }: { t: T }) {
   return (
-    <section id="programs" className="gutter py-24 md:py-36">
+    <section id="programs" className="gutter py-16 md:py-36">
       <Label n="04">{t.programs.label}</Label>
       <h2 className="reveal headline max-w-4xl text-[clamp(2.2rem,5.4vw,5rem)]">
-        {t.programs.title} <span className="slant text-saffron">{t.programs.accent}</span>
+        {t.programs.title} <span className="slant text-cobalt">{t.programs.accent}</span>
       </h2>
-      <ol className="mt-16 md:mt-24">
+      <ol className="mt-10 md:mt-24">
         {t.programs.items.map((p, i) => {
           const left = i % 2 === 0;
           return (
@@ -326,14 +341,14 @@ function Programs({ t }: { t: T }) {
                 </span>
               </div>
               <article
-                className={`reveal pb-16 md:row-start-1 md:pb-28 ${left ? "md:col-start-1 md:pr-12 md:text-right" : "md:col-start-3 md:pl-12"}`}
+                className={`reveal pb-10 md:row-start-1 md:pb-28 ${left ? "md:col-start-1 md:pr-12 md:text-right" : "md:col-start-3 md:pl-12"}`}
               >
                 <div className={`flex items-center gap-4 ${left ? "md:flex-row-reverse" : ""}`}>
                   <PuzzleIcon name={p.art} className="size-10 shrink-0 text-deep md:size-12" />
-                  <h3 className="headline text-3xl md:text-5xl">{p.title}</h3>
+                  <h3 className="headline text-2xl md:text-5xl">{p.title}</h3>
                 </div>
-                <p className="mt-5 text-navy/75 md:text-lg">{p.text}</p>
-                <ul className={`mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-navy/85 ${left ? "md:justify-end" : ""}`}>
+                <p className="mt-3 text-navy/75 md:mt-5 md:text-lg">{p.text}</p>
+                <ul className={`mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-navy/85 ${left ? "md:justify-end" : ""}`}>
                   {p.points.map((pt) => (
                     <li key={pt} className="flex items-center gap-2">
                       <span aria-hidden className="size-1.5 bg-gold" />
@@ -356,7 +371,7 @@ const SMALL_AIMAGS = ["ub", "ork", "dar", "gsu"];
 // The deep-blue band: numbers that count up, and a map of Mongolia's aimags.
 function Impact({ t, lang }: { t: T; lang: Lang }) {
   return (
-    <section id="impact" className="sky-band gutter pb-40 pt-40 text-bone md:pb-60 md:pt-56">
+    <section id="impact" className="sky-band gutter pb-28 pt-28 text-bone md:pb-60 md:pt-56">
       <Label n="05">{t.impact.label}</Label>
       <dl className="border-t border-bone/15">
         {impactNumbers.map((s, i) => (
@@ -410,36 +425,36 @@ function Impact({ t, lang }: { t: T; lang: Lang }) {
 
 function Team({ t }: { t: T }) {
   return (
-    <section id="team" className="gutter py-24 md:py-36">
+    <section id="team" className="gutter py-16 md:py-36">
       <Label n="06">{t.team.label}</Label>
       <h2 className="reveal headline max-w-4xl text-[clamp(2.2rem,5.4vw,5rem)]">
-        {t.team.title} <span className="slant text-saffron">{t.team.accent}</span>
+        {t.team.title} <span className="slant text-cobalt">{t.team.accent}</span>
       </h2>
-      <div className="mt-14 grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="mt-10 grid grid-cols-2 gap-3 md:mt-14 lg:grid-cols-4">
         {t.team.core.map((m, i) => (
           <figure key={m.name} style={vars({ i })} className="reveal group">
-            <div className="sky-card relative grid aspect-[4/5] place-items-center overflow-hidden rounded-[1.75rem] text-bone">
+            <div className="sky-card relative grid aspect-square place-items-center overflow-hidden rounded-[1.25rem] text-bone md:aspect-[4/5] md:rounded-[1.75rem]">
               <Glyph
                 name={GLYPH_CYCLE[i % GLYPH_CYCLE.length]}
                 className="absolute size-[135%] opacity-40 transition duration-500 group-hover:rotate-90 group-hover:opacity-70"
               />
               <Corners className="m-3 size-8 text-bone/50" />
-              <span className="headline slant relative text-6xl md:text-7xl">{initials(m.name)}</span>
+              <span className="headline slant relative text-5xl md:text-7xl">{initials(m.name)}</span>
             </div>
             <figcaption className="mt-4">
               <p className="font-semibold md:text-lg">{m.name}</p>
-              <p className="text-sm text-navy/60">{m.role}</p>
+              <p className="text-sm text-navy/70">{m.role}</p>
             </figcaption>
           </figure>
         ))}
       </div>
-      <div className="mt-20 grid gap-6 md:grid-cols-[16rem_1fr]">
-        <p className="text-xs uppercase tracking-[0.22em] text-navy/60">{t.team.leadsLabel}</p>
+      <div className="mt-14 grid gap-6 md:mt-20 md:grid-cols-[16rem_1fr]">
+        <p className="text-xs uppercase tracking-[0.22em] text-navy/70">{t.team.leadsLabel}</p>
         <ul className="border-t border-navy/15">
           {t.team.leads.map((l, i) => (
             <li key={l.name} style={vars({ i })} className="reveal flex items-baseline justify-between gap-6 border-b border-navy/15 py-5">
               <span className="text-xl font-medium md:text-2xl">{l.name}</span>
-              <span className="text-right text-sm text-navy/60">{l.role}</span>
+              <span className="text-right text-sm text-navy/70">{l.role}</span>
             </li>
           ))}
         </ul>
@@ -451,7 +466,7 @@ function Team({ t }: { t: T }) {
 // Compact footer: brand, links and contact on one band, legal line underneath.
 function Footer({ t }: { t: T }) {
   return (
-    <footer className="overflow-clip bg-navy text-bone">
+    <footer id="contact" className="overflow-clip bg-navy text-bone">
       <div aria-hidden className="alkhan alkhan-run h-5 text-gold/40" />
       <div className="gutter">
         <div className="grid gap-8 py-10 md:grid-cols-[1fr_auto_auto] md:items-center md:gap-12 md:py-12">
