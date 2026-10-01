@@ -2,16 +2,14 @@ import type { CSSProperties, SVGProps } from "react";
 
 type P = SVGProps<SVGSVGElement>;
 
-// Shared gradient for every glyph: light at the centre, deep blue at the rim —
-// like the sky seen through a ger's toono.
+// Shared gradient for every glyph: pale sky at the centre, sinking into the card's own blue
+// at the rim — tone on tone, so the glyph reads as texture, not a second colour.
 export function Defs() {
   return (
     <svg width="0" height="0" className="absolute" aria-hidden>
       <radialGradient id="glow" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="100">
-        <stop offset="0" stopColor="#fdf7e3" />
-        <stop offset=".35" stopColor="#bfe8f5" />
-        <stop offset=".72" stopColor="#35b2dc" />
-        <stop offset="1" stopColor="#0b6e99" />
+        <stop offset="0" stopColor="#bfe8f5" />
+        <stop offset="1" stopColor="#14306a" />
       </radialGradient>
     </svg>
   );

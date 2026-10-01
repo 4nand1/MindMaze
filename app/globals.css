@@ -3,7 +3,7 @@
 /* Palette from Mongolian colour symbolism: a barely-warm milk white base (warmth, not yellow:
    cream cards and saffron borders read as yellow), flag blue (Tengri, the eternal sky) as the brand,
    gold as a small accent (CTA, dots, progress); no red, it reads as the flag. navy is the text ink;
-   the dark hero/sky-card/footer blocks are hardcoded blue gradients. */
+   dark blocks are one flat night blue (#14306a), no multi-blue gradients. */
 @theme {
   --color-paper: #fbf8f2; /* page: milk white */
   --color-cream: #ffffff; /* cards, raised on the page */
@@ -131,23 +131,10 @@ body::after {
   }
 }
 
-/* Blue surfaces are painted like the sky itself: deep at the zenith, lighter toward the horizon. */
-.sky-card {
-  background: linear-gradient(170deg, #0d2150 0%, #14306a 55%, #1f4f94 100%);
-}
-/* A full-width sky that rises out of the paper and sinks back into it — no hard edges. */
+/* Blue surfaces: one flat night blue. Long fades and stacked blues read as overworked. */
+.sky-card,
 .sky-band {
-  background: linear-gradient(
-    to bottom,
-    var(--color-paper) 0,
-    #14306a var(--fade),
-    #14306a calc(100% - var(--fade)),
-    var(--color-paper) 100%
-  );
-  --fade: 6rem;
-  @media (width >= 48rem) {
-    --fade: 10rem;
-  }
+  background: #14306a;
 }
 
 
@@ -264,10 +251,10 @@ body::after {
   position: relative;
   height: 100svh;
   overflow: hidden;
-  /* Blue night sky that warms toward a lamplit horizon. */
+  /* Night sky with a faint lamplit horizon: two blues, one soft warm glow. */
   background:
-    radial-gradient(70% 45% at 50% 100%, rgb(226 180 73 / 0.5), transparent),
-    linear-gradient(to bottom, var(--color-ink) 0%, #14306a 50%, #2f5a9a 85%, #7a6a8a 100%);
+    radial-gradient(60% 35% at 50% 100%, rgb(226 180 73 / 0.22), transparent),
+    linear-gradient(to bottom, var(--color-ink), #14306a);
 }
 .h-photo {
   position: absolute;
@@ -449,13 +436,13 @@ body::after {
 .burr-glow {
   background:
     radial-gradient(22% 5% at 50% 94%, rgb(0 0 0 / 0.35), transparent),
-    radial-gradient(55% 60% at 50% 70%, rgb(243 217 139 / 0.35), transparent);
+    radial-gradient(55% 60% at 50% 70%, rgb(243 217 139 / 0.14), transparent);
 }
 @media (width >= 48rem) {
   .burr-glow {
     background:
       radial-gradient(16% 5% at 66% 82%, rgb(0 0 0 / 0.35), transparent),
-      radial-gradient(40% 55% at 66% 50%, rgb(243 217 139 / 0.4), transparent);
+      radial-gradient(40% 55% at 66% 50%, rgb(243 217 139 / 0.16), transparent);
   }
 }
 .burr-canvas {
