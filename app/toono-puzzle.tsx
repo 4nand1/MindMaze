@@ -23,14 +23,16 @@ export function ToonoPuzzle({ label, hint, solved, children }: { label: string; 
     if (done) return;
     const next = steps.map((s, j) => (j === k || j === k - 1 ? s + 1 : s));
     setSteps(next);
-    if (!aligned(next)) return;
+    const solvedNow = aligned(next);
+    navigator.vibrate?.(solvedNow ? [20, 60, 40] : 8); // ponytail: Android only, a no-op elsewhere
+    if (!solvedNow) return;
     // Solved: fly up through the toono — the hero's scroll-driven iris does the rest.
     const hero = document.getElementById("top");
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (hero)
       setTimeout(
         () => window.scrollTo({ top: hero.offsetTop + (hero.offsetHeight - innerHeight) * 0.78, behavior: reduce ? "auto" : "smooth" }),
-        reduce ? 0 : 900,
+        reduce ? 0 : 1300,
       );
   }
 
@@ -39,6 +41,13 @@ export function ToonoPuzzle({ label, hint, solved, children }: { label: string; 
       <div className={`h-toono text-butter ${done ? "is-solved" : ""}`}>
         {children}
         <svg viewBox="-200 -200 400 400" fill="none" stroke="currentColor" strokeWidth="1.4" className="absolute inset-0 size-full">
+          <filter id="ring-glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" />
+            <feMerge>
+              <feMergeNode />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
           <circle r="76" strokeDasharray="2 5" opacity=".35" />
           <circle r="114" strokeDasharray="2 5" opacity=".35" />
           {BANDS.map(([r0, r1], k) => (

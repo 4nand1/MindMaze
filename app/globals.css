@@ -254,7 +254,7 @@ body::after {
 .is-solved .slide-num {
   opacity: 0;
 }
-.is-solved {
+.slide-board.is-solved {
   box-shadow: 0 0 0 2px var(--color-butter), 0 20px 60px -20px rgb(243 217 139 / 0.5);
   transition: box-shadow 0.5s;
 }
@@ -306,16 +306,32 @@ body::after {
 .ring {
   cursor: pointer;
   outline: none;
-  transition: rotate 0.6s cubic-bezier(0.3, 1.5, 0.5, 1), color 0.4s;
+  opacity: 0.55; /* loose bands sit back; locked ones come forward */
+  transition: rotate 0.6s cubic-bezier(0.3, 1.5, 0.5, 1), color 0.4s, opacity 0.4s;
+}
+.ring:hover {
+  opacity: 0.85;
 }
 .ring:hover .hit {
-  stroke: rgb(255 243 196 / 0.18);
+  stroke: rgb(255 243 196 / 0.12);
 }
 .ring:focus-visible .hit {
   stroke: rgb(232 238 252 / 0.25);
 }
 .ring.is-aligned {
+  opacity: 1;
   color: #fff3c4; /* butter sunlight */
+  filter: url(#ring-glow);
+}
+/* Sunlight through the toono when it's solved. Rim = 0.375 of the art, so inset 12.5%. */
+.h-toono::after {
+  content: "";
+  position: absolute;
+  inset: 12.5%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(255 243 196 / 0.75), rgb(255 243 196 / 0.15) 60%, transparent);
+  opacity: 0;
+  pointer-events: none;
 }
 .is-solved .ring {
   cursor: default;
@@ -635,6 +651,26 @@ body::after {
     filter: drop-shadow(0 0 24px rgb(255 243 196 / 0.9));
   }
 }
+/* 45° = one spoke over, so the wheel lands looking the same. */
+@keyframes solved-turn {
+  to {
+    rotate: 45deg;
+  }
+}
+@keyframes lock {
+  40% {
+    scale: 1.035;
+  }
+}
+@keyframes burst {
+  30% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 1.5;
+  }
+}
 @keyframes grow-x {
   from {
     scale: 0 1;
@@ -700,7 +736,14 @@ body::after {
   }
   /* On the svgs, not .h-toono — that one already runs the scroll zoom. */
   .is-solved > svg {
-    animation: solved 1.2s ease-out;
+    animation: solved 1.2s ease-out, solved-turn 1.4s 0.15s cubic-bezier(0.5, 0, 0.2, 1) both;
+  }
+  .is-solved::after {
+    animation: burst 1.3s 0.1s ease-out;
+  }
+  /* A band settling into line gives a small kick. */
+  .ring.is-aligned {
+    animation: lock 0.5s 0.25s cubic-bezier(0.3, 1.5, 0.5, 1);
   }
   /* The burr is scroll-driven from JS, so it pins wherever sticky works. */
   .burr-scene {
