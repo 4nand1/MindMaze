@@ -371,7 +371,7 @@ const SMALL_AIMAGS = ["ub", "ork", "dar", "gsu"];
 // The deep-blue band: numbers that count up, and a map of Mongolia's aimags.
 function Impact({ t, lang }: { t: T; lang: Lang }) {
   return (
-    <section id="impact" className="sky-band gutter py-20 text-bone md:py-36">
+    <section id="impact" className="sky-band gutter py-36 text-bone md:py-64">
       <Label n="05">{t.impact.label}</Label>
       <dl className="border-t border-bone/15">
         {impactNumbers.map((s, i) => (

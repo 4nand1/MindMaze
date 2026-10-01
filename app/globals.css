@@ -131,10 +131,34 @@ body::after {
   }
 }
 
-/* Blue surfaces: one flat night blue. Long fades and stacked blues read as overworked. */
-.sky-card,
-.sky-band {
+/* Blue surfaces: one flat night blue, no stacked blues. */
+.sky-card {
   background: #14306a;
+}
+/* Full-width band that melts out of the paper and back. Eased stops in oklab: a plain
+   linear fade goes muddy grey in the middle and shows a visible edge where it meets the blue. */
+.sky-band {
+  --b: #14306a;
+  --p: var(--color-paper);
+  --fade: 8rem;
+  @media (width >= 48rem) {
+    --fade: 14rem;
+  }
+  background: linear-gradient(
+    in oklab to bottom,
+    var(--p) 0,
+    color-mix(in oklab, var(--b) 10%, var(--p)) calc(var(--fade) * 0.2),
+    color-mix(in oklab, var(--b) 35%, var(--p)) calc(var(--fade) * 0.4),
+    color-mix(in oklab, var(--b) 65%, var(--p)) calc(var(--fade) * 0.6),
+    color-mix(in oklab, var(--b) 90%, var(--p)) calc(var(--fade) * 0.8),
+    var(--b) var(--fade),
+    var(--b) calc(100% - var(--fade)),
+    color-mix(in oklab, var(--b) 90%, var(--p)) calc(100% - var(--fade) * 0.8),
+    color-mix(in oklab, var(--b) 65%, var(--p)) calc(100% - var(--fade) * 0.6),
+    color-mix(in oklab, var(--b) 35%, var(--p)) calc(100% - var(--fade) * 0.4),
+    color-mix(in oklab, var(--b) 10%, var(--p)) calc(100% - var(--fade) * 0.2),
+    var(--p) 100%
+  );
 }
 
 
