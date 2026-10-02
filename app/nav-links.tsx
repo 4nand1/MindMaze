@@ -23,7 +23,7 @@ export function NavLinks({ links }: { links: readonly (readonly [string, string]
   }, [links]);
 
   return (
-    <nav aria-label="Main" className="hidden gap-1 text-sm lg:flex">
+    <nav aria-label="Main" className="hidden gap-1 whitespace-nowrap text-sm xl:flex">
       {links.map(([href, label]) => (
         <a
           key={href}
