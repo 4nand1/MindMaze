@@ -296,11 +296,11 @@ function Games({ t }: { t: T }) {
           <article
             key={g.name}
             style={vars({ i })}
-            className="reveal group relative flex w-[82%] shrink-0 snap-start flex-col gap-5 rounded-sm border border-sand bg-cream p-6 sm:w-auto sm:gap-6 sm:p-8 transition duration-300 hover:-translate-y-1 hover:border-cerulean/60 hover:shadow-[0_24px_48px_-24px_rgb(79_184_232/0.35)] md:p-10"
+            className="reveal group relative flex w-[82%] shrink-0 snap-start flex-col gap-5 rounded-sm border border-sand bg-cream p-6 sm:w-auto sm:gap-6 sm:p-8 transition duration-300 hover:-translate-y-1 hover:border-navy/25 hover:shadow-[0_24px_48px_-28px_rgb(16_36_77/0.25)] md:p-10"
           >
-            <Corners className="m-3 size-9 text-navy/25 transition duration-300 group-hover:text-cerulean" />
+            <Corners className="m-3 size-9 text-navy/25 transition duration-300 group-hover:text-cobalt" />
             <div className="flex items-start justify-between gap-4">
-              <PuzzleIcon name={g.art} className="size-16 text-deep transition duration-300 group-hover:rotate-12 group-hover:text-cerulean" />
+              <PuzzleIcon name={g.art} className="size-16 text-deep transition duration-300 group-hover:rotate-12 group-hover:text-cobalt" />
               <span className={`rounded-full border px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] ${KIND_TONE[copy.en.games.items[i].kind]}`}>
                 {g.kind}
               </span>
@@ -371,7 +371,7 @@ const SMALL_AIMAGS = ["ub", "ork", "dar", "gsu"];
 // The deep-blue band: numbers that count up, and a map of Mongolia's aimags.
 function Impact({ t, lang }: { t: T; lang: Lang }) {
   return (
-    <section id="impact" className="sky-band gutter pb-28 pt-28 text-bone md:pb-60 md:pt-56">
+    <section id="impact" className="sky-band gutter py-36 text-bone md:py-64">
       <Label n="05">{t.impact.label}</Label>
       <dl className="border-t border-bone/15">
         {impactNumbers.map((s, i) => (

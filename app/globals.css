@@ -3,7 +3,7 @@
 /* Palette from Mongolian colour symbolism: a barely-warm milk white base (warmth, not yellow:
    cream cards and saffron borders read as yellow), flag blue (Tengri, the eternal sky) as the brand,
    gold as a small accent (CTA, dots, progress); no red, it reads as the flag. navy is the text ink;
-   the dark hero/sky-card/footer blocks are hardcoded blue gradients. */
+   dark blocks are one flat night blue (#14306a), no multi-blue gradients. */
 @theme {
   --color-paper: #fbf8f2; /* page: milk white */
   --color-cream: #ffffff; /* cards, raised on the page */
@@ -131,23 +131,34 @@ body::after {
   }
 }
 
-/* Blue surfaces are painted like the sky itself: deep at the zenith, lighter toward the horizon. */
+/* Blue surfaces: one flat night blue, no stacked blues. */
 .sky-card {
-  background: linear-gradient(170deg, #0d2150 0%, #14306a 55%, #1f4f94 100%);
+  background: #14306a;
 }
-/* A full-width sky that rises out of the paper and sinks back into it — no hard edges. */
+/* Full-width band that melts out of the paper and back. Eased stops in oklab: a plain
+   linear fade goes muddy grey in the middle and shows a visible edge where it meets the blue. */
 .sky-band {
-  background: linear-gradient(
-    to bottom,
-    var(--color-paper) 0,
-    #14306a var(--fade),
-    #14306a calc(100% - var(--fade)),
-    var(--color-paper) 100%
-  );
-  --fade: 6rem;
+  --b: #14306a;
+  --p: var(--color-paper);
+  --fade: 8rem;
   @media (width >= 48rem) {
-    --fade: 10rem;
+    --fade: 14rem;
   }
+  background: linear-gradient(
+    in oklab to bottom,
+    var(--p) 0,
+    color-mix(in oklab, var(--b) 10%, var(--p)) calc(var(--fade) * 0.2),
+    color-mix(in oklab, var(--b) 35%, var(--p)) calc(var(--fade) * 0.4),
+    color-mix(in oklab, var(--b) 65%, var(--p)) calc(var(--fade) * 0.6),
+    color-mix(in oklab, var(--b) 90%, var(--p)) calc(var(--fade) * 0.8),
+    var(--b) var(--fade),
+    var(--b) calc(100% - var(--fade)),
+    color-mix(in oklab, var(--b) 90%, var(--p)) calc(100% - var(--fade) * 0.8),
+    color-mix(in oklab, var(--b) 65%, var(--p)) calc(100% - var(--fade) * 0.6),
+    color-mix(in oklab, var(--b) 35%, var(--p)) calc(100% - var(--fade) * 0.4),
+    color-mix(in oklab, var(--b) 10%, var(--p)) calc(100% - var(--fade) * 0.2),
+    var(--p) 100%
+  );
 }
 
 
@@ -243,7 +254,7 @@ body::after {
 .is-solved .slide-num {
   opacity: 0;
 }
-.is-solved {
+.slide-board.is-solved {
   box-shadow: 0 0 0 2px var(--color-butter), 0 20px 60px -20px rgb(243 217 139 / 0.5);
   transition: box-shadow 0.5s;
 }
@@ -264,10 +275,10 @@ body::after {
   position: relative;
   height: 100svh;
   overflow: hidden;
-  /* Blue night sky that warms toward a lamplit horizon. */
+  /* Night sky with a faint lamplit horizon: two blues, one soft warm glow. */
   background:
-    radial-gradient(70% 45% at 50% 100%, rgb(226 180 73 / 0.5), transparent),
-    linear-gradient(to bottom, var(--color-ink) 0%, #14306a 50%, #2f5a9a 85%, #7a6a8a 100%);
+    radial-gradient(60% 35% at 50% 100%, rgb(226 180 73 / 0.22), transparent),
+    linear-gradient(to bottom, var(--color-ink), #14306a);
 }
 .h-photo {
   position: absolute;
@@ -295,16 +306,32 @@ body::after {
 .ring {
   cursor: pointer;
   outline: none;
-  transition: rotate 0.6s cubic-bezier(0.3, 1.5, 0.5, 1), color 0.4s;
+  opacity: 0.55; /* loose bands sit back; locked ones come forward */
+  transition: rotate 0.6s cubic-bezier(0.3, 1.5, 0.5, 1), color 0.4s, opacity 0.4s;
+}
+.ring:hover {
+  opacity: 0.85;
 }
 .ring:hover .hit {
-  stroke: rgb(255 243 196 / 0.18);
+  stroke: rgb(255 243 196 / 0.12);
 }
 .ring:focus-visible .hit {
   stroke: rgb(232 238 252 / 0.25);
 }
 .ring.is-aligned {
+  opacity: 1;
   color: #fff3c4; /* butter sunlight */
+  filter: url(#ring-glow);
+}
+/* Sunlight through the toono when it's solved. Rim = 0.375 of the art, so inset 12.5%. */
+.h-toono::after {
+  content: "";
+  position: absolute;
+  inset: 12.5%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(255 243 196 / 0.75), rgb(255 243 196 / 0.15) 60%, transparent);
+  opacity: 0;
+  pointer-events: none;
 }
 .is-solved .ring {
   cursor: default;
@@ -449,13 +476,13 @@ body::after {
 .burr-glow {
   background:
     radial-gradient(22% 5% at 50% 94%, rgb(0 0 0 / 0.35), transparent),
-    radial-gradient(55% 60% at 50% 70%, rgb(243 217 139 / 0.35), transparent);
+    radial-gradient(55% 60% at 50% 70%, rgb(243 217 139 / 0.14), transparent);
 }
 @media (width >= 48rem) {
   .burr-glow {
     background:
       radial-gradient(16% 5% at 66% 82%, rgb(0 0 0 / 0.35), transparent),
-      radial-gradient(40% 55% at 66% 50%, rgb(243 217 139 / 0.4), transparent);
+      radial-gradient(40% 55% at 66% 50%, rgb(243 217 139 / 0.16), transparent);
   }
 }
 .burr-canvas {
@@ -624,6 +651,26 @@ body::after {
     filter: drop-shadow(0 0 24px rgb(255 243 196 / 0.9));
   }
 }
+/* 45° = one spoke over, so the wheel lands looking the same. */
+@keyframes solved-turn {
+  to {
+    rotate: 45deg;
+  }
+}
+@keyframes lock {
+  40% {
+    scale: 1.035;
+  }
+}
+@keyframes burst {
+  30% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 1.5;
+  }
+}
 @keyframes grow-x {
   from {
     scale: 0 1;
@@ -689,7 +736,14 @@ body::after {
   }
   /* On the svgs, not .h-toono — that one already runs the scroll zoom. */
   .is-solved > svg {
-    animation: solved 1.2s ease-out;
+    animation: solved 1.2s ease-out, solved-turn 1.4s 0.15s cubic-bezier(0.5, 0, 0.2, 1) both;
+  }
+  .is-solved::after {
+    animation: burst 1.3s 0.1s ease-out;
+  }
+  /* A band settling into line gives a small kick. */
+  .ring.is-aligned {
+    animation: lock 0.5s 0.25s cubic-bezier(0.3, 1.5, 0.5, 1);
   }
   /* The burr is scroll-driven from JS, so it pins wherever sticky works. */
   .burr-scene {
