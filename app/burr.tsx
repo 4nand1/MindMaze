@@ -96,6 +96,8 @@ export function Burr({ fallback }: { fallback: ReactNode }) {
         const { clientWidth: w, clientHeight: h } = canvas;
         renderer.setSize(w, h, false);
         camera.aspect = w / h;
+        // Narrow canvases (tablets, phones) widen the view instead of cropping the puzzle's arms.
+        camera.fov = (2 * Math.atan(Math.tan((14 * Math.PI) / 180) * Math.max(1, 0.9 / camera.aspect)) * 180) / Math.PI;
         camera.updateProjectionMatrix();
       };
       resize();

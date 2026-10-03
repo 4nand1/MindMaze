@@ -7,7 +7,7 @@ export function Menu({ links, labels }: { links: readonly (readonly [string, str
   const [open, setOpen] = useState(false);
   const close = () => document.getElementById("mobile-menu")?.hidePopover();
   return (
-    <div className="lg:hidden">
+    <div className="xl:hidden">
       <button
         type="button"
         popoverTarget="mobile-menu"

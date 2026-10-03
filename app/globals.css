@@ -115,8 +115,9 @@ body::after {
    ------------------------------------------------------------------ */
 
 .nav {
-  /* ponytail: no backdrop-filter — re-blurring the page on every scroll frame was a big jank source. */
-  background: rgb(251 248 242 / 0.97);
+  /* ponytail: no backdrop-filter — re-blurring the page on every scroll frame was a big jank source.
+     Fully opaque: at 97% the hero's yellow button ghosted through behind the logo. */
+  background: var(--color-paper);
   box-shadow: 0 1px 0 rgb(16 36 77 / 0.12);
 }
 
@@ -478,11 +479,13 @@ body::after {
     radial-gradient(22% 5% at 50% 94%, rgb(0 0 0 / 0.35), transparent),
     radial-gradient(55% 60% at 50% 70%, rgb(243 217 139 / 0.14), transparent);
 }
-@media (width >= 48rem) {
+@media (width >= 64rem) {
+  /* Same box as .burr-canvas, so the shadow stays under the puzzle. */
   .burr-glow {
+    left: max(32%, 27rem);
     background:
-      radial-gradient(16% 5% at 66% 82%, rgb(0 0 0 / 0.35), transparent),
-      radial-gradient(40% 55% at 66% 50%, rgb(243 217 139 / 0.16), transparent);
+      radial-gradient(24% 5% at 50% 82%, rgb(0 0 0 / 0.35), transparent),
+      radial-gradient(60% 55% at 50% 50%, rgb(243 217 139 / 0.16), transparent);
   }
 }
 .burr-canvas {
@@ -492,15 +495,16 @@ body::after {
   width: 100%;
   height: 56%;
 }
-@media (width >= 48rem) {
+@media (width >= 64rem) {
   .burr-stage {
     align-items: center;
     padding-top: 0;
   }
+  /* Never under the copy column (gutter + 22rem): on tablets 32% alone overlapped the heading. */
   .burr-canvas {
-    left: 32%;
+    left: max(32%, 27rem);
     top: 0;
-    width: 68%;
+    width: calc(100% - max(32%, 27rem)); /* explicit: a <canvas> won't stretch between left/right */
     height: 100%;
   }
 }
@@ -679,12 +683,6 @@ body::after {
     scale: 1 1;
   }
 }
-/* Translate, not mask-position: stays on the compositor instead of repainting every frame. */
-@keyframes alkhan-run {
-  to {
-    translate: -192px 0;
-  }
-}
 @keyframes grow-y {
   from {
     scale: 1 0;
@@ -771,10 +769,6 @@ body::after {
   }
   .marquee {
     animation: marquee 45s linear infinite;
-  }
-  .alkhan-run {
-    width: calc(100% + 192px);
-    animation: alkhan-run 8s linear infinite;
   }
 
   /* Scroll-driven scenes: pure CSS, only where the browser supports it. */

@@ -49,7 +49,7 @@ export function Site({ lang }: { lang: Lang }) {
       <Header t={t} lang={lang} />
       <main className="overflow-x-clip">
         <Hero t={t} />
-        <div aria-hidden className="alkhan alkhan-run h-8 text-deep/30" />
+        <div aria-hidden className="alkhan h-8 text-deep/30" />
         <Statement t={t} />
         <Marquee t={t} />
         {/* One nav target for the 3D puzzle and the games grid below it. */}
@@ -80,7 +80,7 @@ function Header({ t, lang }: { t: T; lang: Lang }) {
         </a>
         <NavLinks links={t.nav} />
         <div className="flex items-center gap-4 sm:gap-5">
-          <p className="hidden text-right text-[11px] font-semibold leading-tight xl:block">
+          <p className="hidden text-right text-[11px] font-semibold leading-tight 2xl:block">
             {t.studio[0]}
             <br />
             {t.studio[1]}
@@ -91,7 +91,7 @@ function Header({ t, lang }: { t: T; lang: Lang }) {
           {/* The one primary action, on every screen: reach us. */}
           <a
             href="#contact"
-            className="hidden h-11 items-center rounded-full bg-cobalt px-5 text-sm font-semibold text-bone transition hover:bg-deep sm:inline-flex"
+            className="hidden h-11 items-center whitespace-nowrap rounded-full bg-cobalt px-5 text-sm font-semibold text-bone transition hover:bg-deep sm:inline-flex"
           >
             {t.footer.contact}
           </a>
@@ -467,7 +467,7 @@ function Team({ t }: { t: T }) {
 function Footer({ t }: { t: T }) {
   return (
     <footer id="contact" className="overflow-clip bg-navy text-bone">
-      <div aria-hidden className="alkhan alkhan-run h-5 text-gold/40" />
+      <div aria-hidden className="alkhan h-5 text-gold/40" />
       <div className="gutter">
         <div className="grid gap-8 py-10 md:grid-cols-[1fr_auto_auto] md:items-center md:gap-12 md:py-12">
           <div>
